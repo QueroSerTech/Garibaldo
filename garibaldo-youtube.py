@@ -1,14 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import urllib
 import urllib2
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 # Registra um Log no MongoDB
-def mongolog(titulo, canal ,link):
+def mongolog(titulo, canal ,link, categoria):
     client = MongoClient("mongodb://public:public@ds113660.mlab.com:13660/querosertech")
     db = client.querosertech
     return db.playlists.insert_one(
-        {
+        {   
+            "categoria" : categoria,
             "titulo" : titulo,
             "canal" : canal,
             "link" : link
@@ -17,7 +21,7 @@ def mongolog(titulo, canal ,link):
 
 
 #Faz o Crawling no Youtube em busca de canais e playlists
-def searchyoutube(termo):
+def searchyoutube(termo, categoria):
     query = urllib.quote(termo)
     url = "https://www.youtube.com/results?search_query=" + query
     response = urllib2.urlopen(url)
@@ -48,19 +52,21 @@ def searchyoutube(termo):
             try:
                 for playlist in playlistsSOUP.find("ul", {"id" : "channels-browse-content-grid"}).findAll("a", {"class" : "yt-uix-tile-link"}):
                     print  playlist["title"] + " - " + 'https://www.youtube.com' + playlist["href"]
-                    mongolog(playlist["title"], playlistsUrl ,'https://www.youtube.com' + playlist["href"])
+                    mongolog(playlist["title"], playlistsUrl ,'https://www.youtube.com' + playlist["href"], categoria)
             except:
                 pass
 
 
 def main():
 
-    terms = ["NodeJS", "AngularJS", "PHP", "Zend Framework", "Docker",
-             "Silex", "Slim", "Laravel", "Django", "Python", "Marketing", "Vagrant", "Jenkins", "Machine Learning"]
+    terms = ["NodeJS", "AngularJS", "PHP", "Zend Framework", "MBA", "Docker", "Zabbix", "CakePHP", "Linux", "LPI", "MongoDB", "React", "Redux",
+             "Silex", "Slim", "Laravel", "Django", "Inglês", "Python", "Marketing", "Vagrant", "Jenkins", "Machine Learning", "Symfony", "Amazon AWS",
+             "Ruby", "Ruby on Rails", "Elixir", "Clojure", "Git", "PHPunit", "Composer", "Bower", "Java", ".NET", "C#", "C++", "MySQL", "SQL", "SQLServer"
+             "Redis", "PostgreSQL"]
 
     for term in terms:
-        searchyoutube("Curso Gratis " + term + " PT")
-        searchyoutube("Tutorial de " + term + " PT")
+        searchyoutube("Curso Gratis " + term + " PT", term)
+        searchyoutube("Tutorial de " + term + " PT", term)
 
 main()
 
