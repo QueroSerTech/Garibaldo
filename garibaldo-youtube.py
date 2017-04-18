@@ -62,7 +62,7 @@ def main():
     terms = ["NodeJS", "AngularJS", "PHP", "Zend Framework", "MBA", "Docker", "Zabbix", "CakePHP", "Linux", "LPI", "MongoDB", "React", "Redux",
              "Silex", "Slim", "Laravel", "Django", "Inglês", "Python", "Marketing", "Vagrant", "Jenkins", "Machine Learning", "Symfony", "Amazon AWS",
              "Ruby", "Ruby on Rails", "Elixir", "Clojure", "Git", "PHPunit", "Composer", "Bower", "Java", ".NET", "C#", "C++", "MySQL", "SQL", "SQLServer"
-             "Redis", "PostgreSQL"]
+             "Redis", "PostgreSQL", "BeMean", "Be MEAN"]
 
     for term in terms:
         searchyoutube("Curso Gratis " + term + " PT", term)
