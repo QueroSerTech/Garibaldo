@@ -19,6 +19,9 @@ def mongolog(titulo, canal ,link, categoria):
         }
     )
 
+def post(titulo, link, categoria):
+    pass
+
 
 #Faz o Crawling no Youtube em busca de canais e playlists
 def searchyoutube(termo, categoria):
@@ -52,21 +55,18 @@ def searchyoutube(termo, categoria):
             try:
                 for playlist in playlistsSOUP.find("ul", {"id" : "channels-browse-content-grid"}).findAll("a", {"class" : "yt-uix-tile-link"}):
                     print  playlist["title"] + " - " + 'https://www.youtube.com' + playlist["href"]
-                    mongolog(playlist["title"], playlistsUrl ,'https://www.youtube.com' + playlist["href"], categoria)
+                    ##mongolog(playlist["title"], playlistsUrl ,'https://www.youtube.com' + playlist["href"], categoria)
             except:
                 pass
 
 
 def main():
 
-    terms = ["NodeJS", "AngularJS", "PHP", "Zend Framework", "MBA", "Docker", "Zabbix", "CakePHP", "Linux", "LPI", "MongoDB", "React", "Redux",
-             "Silex", "Slim", "Laravel", "Django", "Inglês", "Python", "Marketing", "Vagrant", "Jenkins", "Machine Learning", "Symfony", "Amazon AWS",
-             "Ruby", "Ruby on Rails", "Elixir", "Clojure", "Git", "PHPunit", "Composer", "Bower", "Java", ".NET", "C#", "C++", "MySQL", "SQL", "SQLServer"
-             "Redis", "PostgreSQL", "BeMean", "Be MEAN"]
+    terms = ["UX", "User Experience", "experiencia do usuario", "ux design"]
 
     for term in terms:
-        searchyoutube("Curso Gratis " + term + " PT", term)
-        searchyoutube("Tutorial de " + term + " PT", term)
+        searchyoutube(term, term)
+        #searchyoutube("Tutorial de " + term + " PT", term)
 
 main()
 
