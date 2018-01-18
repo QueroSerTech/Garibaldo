@@ -75,7 +75,7 @@ def searchyoutube(termo, categoria):
 
                 post(videoTitle, videoURL, categoria, video_thumb, channel_name, canalurl)
 
-        except expression as identifier:
+        except:
             print "error to access: %s" % videoURL
 
 
