@@ -29,7 +29,7 @@ def post(title, link, tag, thumbnail, channel_name, channel_link):
         "thumbnail" : thumbnail,
         "channel_name" : channel_name,
         "channel_link" : channel_link,
-        "tag" : [
+        "tags" : [
             tag,
             "youtube"
         ]
